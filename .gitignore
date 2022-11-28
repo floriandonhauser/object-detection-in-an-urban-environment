@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+.student_bashrc
+chromium.sh
+launch_jupyter.sh
