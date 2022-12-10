@@ -130,3 +130,5 @@ dmypy.json
 .student_bashrc
 chromium.sh
 launch_jupyter.sh
+
+.idea/
