@@ -58,7 +58,7 @@ python download_process.py --data_dir {processed_file_location} --size {number o
 
 You are downloading 100 files (unless you changed the `size` parameter) so be patient! Once the script is done, you can look inside your `data_dir` folder to see if the files have been downloaded and processed correctly.
 
-## Analysis and write up
+## Analysis and writeup
 #### Dataset analysis
 Data analysis was performed in the "Exploratory Data Analysis.ipynb" notebook.  
 The dataset contains images with annotations for three relevant classes: cyclists, pedestrians and vehicles/cars.
@@ -87,14 +87,16 @@ The validation loss values are:
 - 0.6991 classification loss
 - 0.9528 localization loss
 
-The loss is very much not smooth and does not converge to a good value in the 2500 steps.
+The loss is very much not smooth and does not converge to a good value in the 2500 steps. Because the loss fluctuates soo much, the difference between eval and train might just be fluctuations.
 Precision and recall are very poor:  
 ![plot](./images/precision_reference.png)  
 ![plot](./images/recall_reference.png)
 
 #### Improve on the reference
 To improve the performance, two main changes are made: adding better data augmentation and training differently for better convergence.  
+The second experiment I tried (experiment2) resulted in acceptable performance for this project.
 I choose augmentations that make sense for the scenario. Other options like e.g. vertical flips would not make sense, because cars are usually not upside down on the road.  
+I focused on changes that change the lighting and color of the image to "simulate" different times of day, weather or illumination.  
 These are the augmentations I choose:
 - random_horizontal_flip
 - random_crop_image (kept from reference)
@@ -115,10 +117,12 @@ To improve the performance further and get a better convergence for the loss, I 
 
 These changes helped to further improve the loss values. The important classification and localization losses are significantly reduced for the eval data:  
 - 0.3506 classification loss
-- 0.5662 localization loss 
+- 0.5662 localization loss
+
+The loss still fluctuates but it converges better. No over-fitting occurs (difference between train and eval from fluctuations).  
 The loss is shown below:  
 ![plot](./images/loss_experiment2.png)
-- 
+
 Precision and recall also increase dramatically, e.g.    
 - 0.05195 DetectionBoxes_Precision/mAP (>300x better)
 - 0.01451 DetectionBoxes_Recall/AR@1 (basically 0 before)
